@@ -1,0 +1,171 @@
+# configurations/config_train.yaml
+
+mlflow:
+  experiment_name: "DE_RL_Tuning_Simple"
+  tracking_uri: null
+  tags:
+    project: "EA_RL"
+    team: "opt-rl"
+
+experiment:
+  random_seed: 42
+  history_path: "history_all_simple.pkl"
+  results_dir: "./results_training"
+  runs_per_problem: 20
+  execution_tag: "exp_rl"
+
+problem:
+  epsilon: 1e-3
+
+train_problems:
+  problems:
+    - name: "bbob_2013_attractive_sector"
+      dims: [10]
+    - name: "schwefel"
+      dims: [5, 10, 15]
+    - name: "bbob_2013_buche_rastrigin"
+      dims: [5]
+    - name: "ackley"
+      dims: [10]
+    - name: "bbob_2013_bent_cigar"
+      dims: [10]
+    - name: "bbob_2013_sharp_ridge"
+      dims: [5]
+    - name: "bbob_2013_different_powers"
+      dims: [10]
+    - name: "rastrigin"
+      dims: [15]
+    - name: "rosenbrock"
+      dims: [10]
+    - name: "sphere"
+      dims: [15]
+    - name: "noisy_sphere"
+      dims: [15]
+    - name: "griewank"
+      dims: [10]
+    - name: "schaffer"
+      dims: [10]
+
+
+test_problems:
+  problems:
+    - name: "bbob_2013_attractive_sector"
+      dims: [5]
+    - name: "bbob_2013_buche_rastrigin"
+      dims: [5, 10]
+    - name: "bbob_2013_bent_cigar"
+      dims: [5, 15]
+    - name: "bbob_2013_sharp_ridge"
+      dims: [5]
+    - name: "bbob_2013_different_powers"
+      dims: [10]
+    - name: "rastrigin"
+      dims: [10]
+    - name: "rosenbrock"
+      dims: [15]
+    - name: "schwefel"
+      dims: [10]
+    - name: "ackley"
+      dims: [15]
+
+
+differential_evolution:
+  population_size: 100
+  differential_weights: 0.8
+  crossover_probability: 0.9
+  base_index_strategy: "rand"
+  differential_number: 2
+  recombination_strategy: "binomial"
+  differentials_weights_strategy: "given"
+
+
+# action_space:
+#   hyperparameters:
+#     differential_weights:
+#       range: [0.0, 1.0]
+#       continuous: true
+#     crossover_probability:
+#       range: [0.0, 1.0]
+#       continuous: true
+#     base_index_strategy:
+#       values:
+#         - "rand"
+#         - "better"
+#         - "target-to-best"
+#         - "best"
+#     recombination_strategy:
+#       values:
+#         - "binomial"
+#         - "exponential"
+#   controllable_parameters:
+#     - differential_weights
+#     - crossover_probability
+#     - base_index_strategy
+#     - recombination_strategy
+#  epsilon: 0.01
+
+action_space:
+  hyperparameters:
+    differential_weights:
+      range: [0.0, 1.0]
+    crossover_probability:
+      range: [0.0, 1.0]
+  controllable_parameters:
+    - differential_weights
+    - crossover_probability
+  epsilon: 0.01
+
+rl_environment:
+  num_generations_per_iteration: 10
+  max_generations: 5000 # Upper bound of number of generations
+  max_number_generations_per_episode: 3000 # Number of steps per episode (this will limit each execution for each problem)
+  reward_type: "combined_increment_with_binary"
+  omega: 0.5
+  ref_window: 5
+  time_scale: 1.0
+  observables:
+    - generation_log
+    - average_pop_fitness
+    - entropy
+    - std_fitness
+    - fitness_improvement
+    - stagnation
+    - genotypic_diversity
+    - best_fitness_norm
+    - avg_distance_from_best
+
+  observables_config:
+    fitness_improvement:
+      window: 1
+    stagnation:
+      max_stag: 100
+
+agent:
+  type: "ppo"
+  config:
+    batch_size: 32
+    learning_rate: 0.001
+  pretrained_dir: null
+
+controller_type: "rl"        # jade | shade | rl | random | noop | rechenberg
+train:
+  episodes_per_problem: 1          # Number of episodes during training
+
+popde:
+  c: 0.1            # learning rate factor for the mean
+  history_size: 5   # only used by SHADE; ignored by JADE
+
+algorithm: "de"          # "de" by default | "es"
+
+evolutionary_strategies:
+  mu: 30
+  lamda: 200
+  phro: 2
+  epsilon0: 1e-4
+  tau: 0.3
+  tau_prime: 0.2
+  mutation_steps: 1
+  recombination_individuals_strategy: "discrete"
+  recombination_strategy_strategy: "averaged_intermediate"
+  survivor_strategy: "mu+lambda"
+  external_sigma_control: true

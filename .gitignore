@@ -1,0 +1,87 @@
+# ----------------------
+# Python general
+# ----------------------
+__pycache__/
+*.py[cod]
+*.so
+*.pyd
+*.pyo
+*.egg-info/
+*.egg
+*.log
+*.tmp
+*.bak
+.DS_Store
+.env
+.venv/
+venv/
+env/
+
+# ----------------------
+# Jupyter notebooks
+# ----------------------
+.ipynb_checkpoints/
+
+**/notebooks/
+# ----------------------
+# MLflow
+# ----------------------
+**/mlruns/
+mlruns.db
+*.mlmodel
+mlflow.log
+**/tensorforce/
+# ----------------------
+# Results, outputs, caches
+# ----------------------
+results/
+**/results_training/
+**/results/
+history_all.pkl
+*.pkl
+*.npy
+*.npz
+*.csv
+*.json
+*.yaml~
+*.yml~
+
+# ----------------------
+# Model checkpoints / agent states
+# ----------------------
+checkpoints/
+pretrained/
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.joblib
+
+# ----------------------
+# System-specific
+# ----------------------
+*.swp
+*.swo
+Thumbs.db
+ehthumbs.db
+Icon?
+desktop.ini
+
+# ----------------------
+# VSCode or IDE files
+# ----------------------
+.vscode/
+.idea/
+*.code-workspace
+
+# ----------------------
+# Compiled C/C++/Fortran
+# ----------------------
+*.out
+*.exe
+*.o
+*.obj
+*.a
+*.lib
+*.dll
+*.mod
