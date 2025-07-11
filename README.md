@@ -1,4 +1,5 @@
 # Mario Jiménez's RL Controller hyperparameters Evolutionary Algorithm
+A reinforcement learning (RL)-based controller optimizes the hyperparameters of evolutionary algorithms in real time. The RL agent dynamically tunes user-configurable parameters—such as mutation rate and selection strategies—to improve performance across benchmark optimization problems.
 ## Setup and Execution
 
 ### Setup code
@@ -86,7 +87,6 @@ Before running `pre-commit`, you may want to clean up previous attempts. You can
 ## Code Structure
 
     .
-    ├── notebooks/                     # Jupyter notebooks with ad-hoc experiments
     ├── src/
     │   ├── benchmarking/              # Classic + BBOB-2013 benchmark functions
     │   ├── configurations/            # YAML + parsers that define experiments
