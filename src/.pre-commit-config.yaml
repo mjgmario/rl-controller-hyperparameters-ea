@@ -1,0 +1,40 @@
+repos:
+  - repo: local
+    hooks:
+      - id: trailing-whitespace
+        name: Remove trailing whitespace
+        entry: trailing-whitespace-fixer
+        language: system
+        files: ^(src|tests)/.*$
+        exclude: \.ipynb$
+
+      - id: end-of-file-fixer
+        name: Ensure file ends with a newline
+        entry: end-of-file-fixer
+        language: system
+        files: ^(src|tests)/.*$
+        exclude: \.ipynb$
+
+      - id: check-yaml
+        name: Validate YAML
+        entry: check-yaml
+        language: system
+        files: ^(src|tests)/.*\.(ya?ml)$
+        exclude: \.ipynb$
+
+      - id: check-added-large-files
+        name: Prevent adding large files
+        entry: check-added-large-files
+        language: system
+        files: ^(src|tests)/.*$
+        exclude: \.ipynb$
+
+  - repo: local
+    hooks:
+      - id: ruff
+        name: Ruff
+        entry: ruff check
+        language: system
+        files: ^(src|tests)/.*\.(py|pyi)$
+        exclude: \.ipynb$
+
